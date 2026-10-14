@@ -1,0 +1,18 @@
+services:
+  postgres:
+    env_file:         #to load environment variables from a file
+      - .env
+    image: postgres:17
+    container_name: nadibaby-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PGDATABASE}        # ${} is referencing the variable from the .env file
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+    ports:
+      - "${PGPORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
